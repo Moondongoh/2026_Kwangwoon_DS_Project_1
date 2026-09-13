@@ -1,0 +1,369 @@
+========LOAD========
+Squat/barbell/2:30/120
+Squat/dumbbell/2:00/95
+Squat/bodyweight/1:30/60
+Lunge/dumbbell/2:10/90
+Lunge/bodyweight/1:50/70
+Deadlift/barbell/3:00/145
+Deadlift/kettlebell/2:20/110
+Bench Press/barbell/2:40/115
+Bench Press/dumbbell/2:20/100
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Pull Up/bodyweight/2:00/95
+Overhead Press/barbell/2:10/90
+Overhead Press/dumbbell/1:50/80
+Lateral Raise/dumbbell/1:30/60
+Plank/bodyweight/1:15/45
+Calf Raise/machine/1:10/50
+====================
+: Exercise_List.txt로부터 데이터 로드를 성공함
+
+========ERROR========
+100
+====================
+: 이미 Queue에 데이터가 존재하는 상태에서 LOAD를 재실행한 경우
+
+========ADD========
+Burpee/bodyweight/2:45/130
+====================
+: Queue에 없던 새로운 세트를 추가한 상태
+
+========ERROR========
+200
+====================
+: 이미 Queue에 존재하는 세트를 추가한 상태
+
+========ERROR========
+600
+====================
+: Routine이 비어 있는 상태에서 출력을 시도한 경우
+
+========ERROR========
+700
+====================
+: Routine이 비어 있는 상태에서 맨 앞 세트를 삭제하려는 경우
+
+========ERROR========
+700
+====================
+: Routine이 비어 있는 상태에서 맨 뒤 세트를 삭제하려는 경우
+
+========QPOP========
+Success
+====================
+: Queue의 모든 데이터를 방출하여 ExerciseBST, EquipmentBST 구축 성공
+
+========ERROR========
+300
+====================
+: Queue가 비어 있는 상태에서 QPOP 수행
+-> 에러 코드 출력 후 다음 명령어를 계속 수행한다 (프로그램 종료 아님)
+
+========SEARCH========
+Squat/barbell/2:30/120
+Squat/dumbbell/2:00/95
+Squat/bodyweight/1:30/60
+====================
+: 운동 종목을 기준으로 검색
+-> 같은 운동이라도 장비가 다르면 소요시간과 칼로리가 다르다
+
+========SEARCH========
+Squat/dumbbell/2:00/95
+Lunge/dumbbell/2:10/90
+Bench Press/dumbbell/2:20/100
+Overhead Press/dumbbell/1:50/80
+Lateral Raise/dumbbell/1:30/60
+====================
+: 장비를 기준으로 검색, 그 장비로 할 수 있는 모든 운동이 출력된다
+-> 두 BST가 서로 반대 방향으로 데이터를 묶고 있음을 확인할 수 있다
+
+========SEARCH========
+Deadlift/kettlebell/2:20/110
+====================
+: 운동 종목과 장비를 모두 지정하여 하나의 세트만 검색
+
+========ERROR========
+400
+====================
+: 존재하지 않는 운동 종목에 대한 검색
+
+========MAKERT========
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Count : 2 / 10
+Time : 4min 10sec
+Kcal : 190
+====================
+: BACK 옵션 : Row의 두 세트를 루틴 뒤쪽에 한번에 추가
+-> 총 소요시간(Time)과 총 소모 칼로리(Kcal)가 함께 계산된다
+
+========ERROR========
+500
+====================
+: 이미 Routine에 존재하는 세트에 대해 다시 추가를 시도한 경우
+
+========MAKERT========
+Plank/bodyweight/1:15/45
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Count : 3 / 10
+Time : 5min 25sec
+Kcal : 235
+====================
+: FRONT 옵션 : Plank가 루틴 맨 앞에 삽입되었음을 확인
+
+========ERROR========
+500
+====================
+: 여러 세트를 한번에 넣는 과정에서 그 중 하나(Plank/bodyweight)라도
+  이미 Routine에 존재하면 전체가 에러로 처리된다 (공간은 충분한 상황)
+
+========MAKERT========
+Plank/bodyweight/1:15/45
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Calf Raise/machine/1:10/50
+Count : 4 / 10
+Time : 6min 35sec
+Kcal : 285
+====================
+: BACK 옵션 : 한 세트를 루틴 뒤쪽에 추가
+
+========MAKERT========
+Squat/barbell/2:30/120
+Squat/dumbbell/2:00/95
+Squat/bodyweight/1:30/60
+Plank/bodyweight/1:15/45
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Calf Raise/machine/1:10/50
+Count : 7 / 10
+Time : 12min 35sec
+Kcal : 560
+====================
+: FRONT 옵션으로 여러 세트를 한번에 추가한 경우
+-> Squat의 세 세트가 BST에서 찾은 순서(barbell -> dumbbell -> bodyweight)를
+  그대로 유지한 채 맨 앞에 들어간다
+
+========MAKERT========
+Squat/barbell/2:30/120
+Squat/dumbbell/2:00/95
+Squat/bodyweight/1:30/60
+Plank/bodyweight/1:15/45
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Calf Raise/machine/1:10/50
+Pull Up/bodyweight/2:00/95
+Count : 8 / 10
+Time : 14min 35sec
+Kcal : 655
+====================
+: BACK 옵션 : 8번째 세트 추가
+
+========ERROR========
+500
+====================
+: 넣고자 하는 세트의 수(barbell: 5개)가 Routine의 남은 공간(2칸)을 넘어선 경우
+-> 일부만 넣지 않고 전체를 에러로 처리한다
+
+========MAKERT========
+Bench Press/dumbbell/2:20/100
+Squat/barbell/2:30/120
+Squat/dumbbell/2:00/95
+Squat/bodyweight/1:30/60
+Plank/bodyweight/1:15/45
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Calf Raise/machine/1:10/50
+Pull Up/bodyweight/2:00/95
+Count : 9 / 10
+Time : 16min 55sec
+Kcal : 755
+====================
+: FRONT 옵션 : 9번째 세트를 맨 앞에 추가
+
+========MAKERT========
+Bench Press/dumbbell/2:20/100
+Squat/barbell/2:30/120
+Squat/dumbbell/2:00/95
+Squat/bodyweight/1:30/60
+Plank/bodyweight/1:15/45
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Calf Raise/machine/1:10/50
+Pull Up/bodyweight/2:00/95
+Lateral Raise/dumbbell/1:30/60
+Count : 10 / 10
+Time : 18min 25sec
+Kcal : 815
+====================
+: BACK 옵션 : Routine이 정확히 10칸으로 가득 찬 상태
+
+========ERROR========
+500
+====================
+: Routine이 가득 찬 상태에서 추가를 시도한 경우
+
+========ERROR========
+500
+====================
+: FRONT / BACK 이 아닌 잘못된 위치 인자를 입력한 경우
+
+========PRINT========
+ExerciseBST
+Bench Press/barbell/2:40/115
+Bench Press/dumbbell/2:20/100
+Burpee/bodyweight/2:45/130
+Calf Raise/machine/1:10/50
+Deadlift/barbell/3:00/145
+Deadlift/kettlebell/2:20/110
+Lateral Raise/dumbbell/1:30/60
+Lunge/dumbbell/2:10/90
+Lunge/bodyweight/1:50/70
+Overhead Press/barbell/2:10/90
+Overhead Press/dumbbell/1:50/80
+Plank/bodyweight/1:15/45
+Pull Up/bodyweight/2:00/95
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Squat/barbell/2:30/120
+Squat/dumbbell/2:00/95
+Squat/bodyweight/1:30/60
+====================
+: ExerciseBST 전체 출력 (운동 종목 기준 중위 순회)
+
+========PRINT========
+EquipmentBST
+Squat/barbell/2:30/120
+Deadlift/barbell/3:00/145
+Bench Press/barbell/2:40/115
+Row/barbell/2:15/105
+Overhead Press/barbell/2:10/90
+Squat/bodyweight/1:30/60
+Lunge/bodyweight/1:50/70
+Pull Up/bodyweight/2:00/95
+Plank/bodyweight/1:15/45
+Burpee/bodyweight/2:45/130
+Row/cable/1:55/85
+Squat/dumbbell/2:00/95
+Lunge/dumbbell/2:10/90
+Bench Press/dumbbell/2:20/100
+Overhead Press/dumbbell/1:50/80
+Lateral Raise/dumbbell/1:30/60
+Deadlift/kettlebell/2:20/110
+Calf Raise/machine/1:10/50
+====================
+: EquipmentBST 전체 출력 (장비 기준 중위 순회)
+-> 같은 장비에 여러 운동이 묶여 있는 것을 확인
+
+========PRINT========
+Bench Press/dumbbell/2:20/100
+Squat/barbell/2:30/120
+Squat/dumbbell/2:00/95
+Squat/bodyweight/1:30/60
+Plank/bodyweight/1:15/45
+Row/barbell/2:15/105
+Row/cable/1:55/85
+Calf Raise/machine/1:10/50
+Pull Up/bodyweight/2:00/95
+Lateral Raise/dumbbell/1:30/60
+Count : 10 / 10
+Time : 18min 25sec
+Kcal : 815
+====================
+: Routine 전체 출력 (head부터 tail까지)
+-> FRONT로 넣은 세트들이 앞쪽에, BACK으로 넣은 세트들이 뒤쪽에 있음을 확인
+
+========DELETE========
+Success
+====================
+: FRONT 옵션 : 맨 앞 세트(Bench Press/dumbbell) 제거
+
+========DELETE========
+Success
+====================
+: BACK 옵션 : 맨 뒤 세트(Lateral Raise/dumbbell) 제거
+-> tail의 이전 노드를 가리키는 포인터가 있어야 한 번에 처리할 수 있다
+
+========DELETE========
+Success
+====================
+: 해당 운동의 세트 전부 삭제 (ExerciseBST, EquipmentBST, Routine 전부)
+-> machine은 사용하는 운동이 0개가 되어 EquipmentBST에서 노드 자체가 사라진다
+
+========ERROR========
+700
+====================
+: 존재하지 않는 데이터에 대한 명령어
+
+========DELETE========
+Success
+====================
+: 해당 장비의 세트 전부 삭제
+-> Row는 barbell 세트가 남아 있으므로 ExerciseBST 노드는 유지된다
+
+========DELETE========
+Success
+====================
+: Routine에서만 해당 세트 삭제, BST에는 영향이 없다
+
+========ERROR========
+700
+====================
+: 존재하지 않는 데이터에 대한 명령어
+
+========DELETE========
+Success
+====================
+: Routine에는 없지만 BST에는 존재하는 세트
+-> BST에서만 삭제가 이루어지며 별도의 오류 처리는 하지 않는다
+
+========PRINT========
+ExerciseBST
+Bench Press/barbell/2:40/115
+Bench Press/dumbbell/2:20/100
+Burpee/bodyweight/2:45/130
+Deadlift/barbell/3:00/145
+Deadlift/kettlebell/2:20/110
+Lateral Raise/dumbbell/1:30/60
+Lunge/bodyweight/1:50/70
+Overhead Press/barbell/2:10/90
+Overhead Press/dumbbell/1:50/80
+Plank/bodyweight/1:15/45
+Pull Up/bodyweight/2:00/95
+Row/barbell/2:15/105
+Squat/barbell/2:30/120
+Squat/dumbbell/2:00/95
+Squat/bodyweight/1:30/60
+====================
+: Calf Raise 노드가 사라지고 Row의 cable 세트, Lunge의 dumbbell 세트가
+  사라졌음을 확인할 수 있다
+
+========DELETE========
+Success
+====================
+: 해당 세트 삭제 수행
+-> Queue를 제외한 모든 자료구조에서 삭제된다 (Queue는 QPOP으로만 제어)
+
+========PRINT========
+Squat/barbell/2:30/120
+Squat/bodyweight/1:30/60
+Row/barbell/2:15/105
+Pull Up/bodyweight/2:00/95
+Count : 4 / 10
+Time : 8min 15sec
+Kcal : 380
+====================
+: 삭제한 세트가 사라져 있음을 확인할 수 있다
+-> 총 소요시간(Time)과 총 칼로리(Kcal)도 함께 감소한다
+
+========ERROR========
+1000
+====================
+: 정의되지 않은 명령어
+
+========EXIT========
+Success
+====================
+: 모든 메모리 할당을 해제하며 프로그램 종료

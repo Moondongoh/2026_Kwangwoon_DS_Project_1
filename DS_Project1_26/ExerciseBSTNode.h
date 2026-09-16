@@ -1,13 +1,17 @@
 #pragma once
-#include "WorkoutQueueNode.h"
+#include <string>
 #include <vector>
+using namespace std;
+
+struct ExerciseSet {
+	// TODO: declare the member variables for a single set
+	//       (equipment / duration / calories)
+};
 
 class ExerciseBSTNode {
 private:
 	string exercise;
-	vector<string> equipment;
-	vector<string> dtime;
-	vector<int> kcal;
+	vector<ExerciseSet> sets;
 	int count;
 
 	ExerciseBSTNode* left;

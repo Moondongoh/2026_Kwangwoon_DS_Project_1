@@ -1,5 +1,6 @@
 #pragma once
 #include "RoutineNode.h"
+#include <string>
 
 class Routine {
 private:
@@ -8,7 +9,7 @@ private:
 	int count;
 	int total_sec;
 	int total_kcal;
-	string data;
+	int capacity;
 
 public:
 	Routine();

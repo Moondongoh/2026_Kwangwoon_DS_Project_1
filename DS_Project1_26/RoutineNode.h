@@ -1,7 +1,6 @@
 #pragma once
 #include "WorkoutQueueNode.h"
 
-
 class RoutineNode {
 private:
 	string exercise;

@@ -4,9 +4,6 @@
 class EquipmentBST {
 private:
 	EquipmentBSTNode* root;
-	EquipmentBSTNode* parent;
-	string data;
-	EquipmentBSTNode* target;
 
 public:
 	EquipmentBST();

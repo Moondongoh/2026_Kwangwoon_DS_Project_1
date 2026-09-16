@@ -4,9 +4,6 @@
 class ExerciseBST {
 private:
 	ExerciseBSTNode* root;
-	ExerciseBSTNode* parent;
-	string data;
-	ExerciseBSTNode* target;
 
 public:
 	ExerciseBST();

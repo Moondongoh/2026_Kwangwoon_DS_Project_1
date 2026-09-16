@@ -5,7 +5,8 @@ class WorkoutQueue {
 private:
 	WorkoutQueueNode* head;
 	WorkoutQueueNode* rear;
-	int size = 0;
+	int size;
+	int capacity;
 
 public:
 	WorkoutQueue();
